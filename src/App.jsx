@@ -1,12 +1,10 @@
-import { useState } from 'react'
-
 import './App.css'
-import CardContainer from './components/CardContainer/CardContainer'
+import GameContainer from './GameContainer/GameContainer'
 
 function App() {
   return (
     <>
-      <CardContainer/>
+      <GameContainer/>
     </>
   )
 }

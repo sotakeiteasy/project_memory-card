@@ -1,0 +1,72 @@
+.gameContainer {
+    min-height: 90vh;
+    font-family: 'Just Another Hand', cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+
+        .message {
+            font-size: 1.3rem;
+            align-self: center;
+            padding-left: 50px;
+        }
+
+        .message.old {
+            transform:   scale(0);
+        }
+
+        .message.new {
+            color: rgb(227, 20, 96);
+            translate: 40%;
+            transition: all .2s ease-out;
+            transform: scale(1.4);
+            position: relative;
+        }
+
+                .message.new::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -5px;
+                    left: 0;
+                    width: 0;
+                    height: 1px;
+                    background: rgb(227, 20, 96);
+                    animation: grow .4s forwards;
+                    rotate: -1deg;
+                }
+        
+                @keyframes grow {
+                    to {
+                        width: 100%;
+                    }
+                }
+
+        .countBlock {
+                font-size: 1.5rem;
+                padding-right: 50px;
+                font-weight: 600;
+        }
+    }
+
+    .credits {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+
+        img {
+            display: inline-block;
+            height: 20px;
+            width: auto;
+        }
+
+        a {
+            color: black;
+        }
+    }
+}
+
