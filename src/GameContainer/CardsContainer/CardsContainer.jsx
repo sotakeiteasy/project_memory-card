@@ -67,7 +67,7 @@ const useCharacterData = () => {
                     // }
                     
 
-                    await delay(400)
+                    await delay(500)
 
                     let picResponse
                     
