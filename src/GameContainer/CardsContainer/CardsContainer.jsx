@@ -66,31 +66,44 @@ const useCharacterData = () => {
                     //     throw new Error(`Failed to fetch characterId for ${name}`);
                     // }
                     
-
+                    console.log('try')
                     await delay(500)
-
                     let picResponse
                     
-                    if (name === 'MayaIbuki') {
-                        picResponse = await fetch(`https://api.jikan.moe/v4/characters/1256/pictures`);
-                    } else {
+                    // NAMES (id for Maya parse incorrectly)
+                    // if (name === 'MayaIbuki') {
+                    //     picResponse = await fetch(`https://api.jikan.moe/v4/characters/1256/pictures`);
+                    // } else {
+                    //     picResponse = await fetch(`https://api.jikan.moe/v4/characters/${characterId}/pictures`);
+                    // }
+
+                    picResponse = await fetch(`https://api.jikan.moe/v4/characters/${characterId}/pictures`);
+                    
+                    if (!picResponse.ok) {
+                        console.warn(`Failed to fetch pictures for characterId ${characterId}, trying again...`)
+                        await delay(500)
                         picResponse = await fetch(`https://api.jikan.moe/v4/characters/${characterId}/pictures`);
+
                     }
 
-                    if (!picResponse) {
-                        throw new Error(`Failed to fetch picResponse ${picResponse}`);
+                    if (!picResponse.ok) {
+                        throw new Error(`Failed to fetch pictures for characterId ${characterId}`);
                     }
 
                     const pictures = await picResponse.json();
+                    if (!pictures) {
+                        throw new Error(`Failed to fetch pictures ${pictures}`);
+                    }
+
                     const pictureUrl = pictures.data[2]?.jpg?.image_url || pictures.data[0]?.jpg?.image_url;
                     if (!pictureUrl) {
-                        throw new Error(`Failed to fetch pictureUrl ${pictureUrl}`);
+                        throw new Error(`Failed to take pictureUrl ${pictureUrl}`);
                     }
                     
                     characterData.push({ pictureUrl, characterId});
 
                 } catch(error) {
-                    alert(error.message)
+                    console.error(error.message)
                 }
             }
             setData(characterData);
@@ -111,7 +124,6 @@ const CardsContainer = ({ score, setScore, bestScore, setBestScore }) => {
     const [shuffledData, setShuffledData] = useState([])
 
     useEffect(() => {
-        console.log("effect")
         if (data.length > 0) {
             setFlippedCards(new Array(data.length).fill(false));
             
